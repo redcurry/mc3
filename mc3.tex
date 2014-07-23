@@ -3,10 +3,14 @@
 
 \documentclass[12pt]{article}
 
+% One-inch margins
 \usepackage{fullpage}
 
 % No orphans or widows
 \usepackage[all]{nowidow}
+
+% Additional math features
+\usepackage{amsmath}
 
 % Use mee bibliography style
 \usepackage{natbib}
@@ -107,7 +111,49 @@ The introduction will go here, including discussion of BAMM.
 
 \subsection*{Metropolis coupled MCMC}
 
-Describe implementation of MC$^{3}$.
+We followed \citet{alt04} for the implementation of \MCMCMC\ in BAMM.
+%
+For each Markov chain $i \in \{1, 2, \dots\}$, its temperature was set to
+$\beta_i = [1 + \Delta T \times (i - 1)]^{-1}$,
+where $\Delta T$ is the temperature increment parameter.
+%
+For example, if there are 4 chains and $\Delta T$ is 0.1,
+the temperature of each chain is 1, 0.9091, 0.8333, and 0.7692.
+%
+The cold chain always has a temperature of 1.
+%
+The value of $\Delta T$ should be greater than 0
+and chosen such that the probability of accepting a swap
+is between 20\% and 60\% \citep{alt04}.
+
+
+The temperature of chain $i$ goes into the calculation
+of the acceptance probability $\alpha_i$ for a move proposal.
+%
+For moves that do not involve changes in the dimensionality of the model,
+\[\alpha_i = \text{min}\left\{ 1,
+    \left(
+    \frac{f(\theta_i')}{f(\theta_i)} \times
+    \frac{\pi(\theta_i')}{\pi(\theta_i)}
+    \right)^{\beta_i} \times
+    \frac{q(\theta_i | \theta_i')}{q(\theta_i' | \theta_i)}
+\right\}\]
+where $\theta_i$ and $\theta_i'$ are parameter vectors
+corresponding to the current and proposed states for chain $i$,
+$f$ and $\pi$ are the corresponding likelihood and prior density functions,
+and $q(\theta_i' | \theta_i)$ is the relative probability
+of proposing a move to parameter vector $\theta_i'$,
+given that the current state is $\theta_i$.
+%
+A similar calculation was done for the acceptance probability for proposals
+that change the dimensionality of the model.
+
+After a certain number of generations, two randomly chosen chains $j$ and $k$
+are swapped with acceptance probability
+\[\alpha = \text{min}\left\{ 1,
+    \left(\frac{f(\theta_k)}{f(\theta_j)}\right)^{\beta_j} \times
+    \left(\frac{f(\theta_j)}{f(\theta_k)}\right)^{\beta_k}
+\right\}\]
 
 
 \subsection*{Performance analysis}
