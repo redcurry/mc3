@@ -12,6 +12,9 @@
 \usepackage{natbib}
 \bibliographystyle{mee}
 
+% Definitions to make it easier to type
+\newcommand{\MCMCMC}{(MC)$^{3}$}
+
 \begin{document}
 
 % Double-spaced
@@ -45,7 +48,45 @@ $^{*}$Corresponding author: Daniel L. Rabosky (drabosky@umich.edu)
 % Maximum of 350 words
 \section*{Abstract}
 
-The abstract will go here.
+\begin{flushleft}
+
+\textbf{1.}
+BAMM (Bayesian Analysis of Macroevolutionary Mixtures) is a computer program
+that uses Markov chain Monte Carlo (MCMC) to model complex dynamics
+of speciation, extinction, and trait evolution on phylogenetic trees.
+%
+Previous versions of BAMM used a single Markov chain
+to explore the landscape of models and their parameter values.
+%
+A single chain, however, may get stuck in local optima,
+resulting in less mixing and more time needed for convergence.
+
+\textbf{2.}
+Here we describe an extension to BAMM
+that implements Metropolis coupled MCMC [\MCMCMC].
+%
+In \MCMCMC, additional chains are introduced
+that are able to explore more of the model landscape.
+%
+Swaps between chains may occur periodically,
+so if a chain is stuck in a local optimum,
+it may immediately jump to another area of the landscape.
+%
+In addition, we describe multi-core \MCMCMC,
+which is able to run each chain on a separate CPU.
+
+\textbf{3.}
+We find that in both simulated data sets and an empirical data set,
+\MCMCMC\ mixes better and reduces the time to convergence
+compared to a single-chain MCMC.
+%
+Greater than four chains results in diminishing returns.
+
+\textbf{4.}
+\MCMCMC\ greatly improves the reliability of results in BAMM,
+and we recommend its use in all future studies of macroevolutionary dynamics.
+
+\end{flushleft}
 
 \begin{flushleft}
 \textbf{Key-words:} BAMM, Bayesian, macroevolution, phylogeny, skink, speciation
