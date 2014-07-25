@@ -103,7 +103,75 @@ and we recommend its use in all future studies of macroevolutionary dynamics.
 % State the reason for the work, the context and the hypotheses being tested
 \section*{Introduction}
 
-The introduction will go here, including discussion of BAMM.
+\subsection*{Background}
+
+General information about why we care about speciation dynamics.
+
+
+\subsection*{BAMM}
+
+BAMM is a computer program that searches for models that best explain
+complex dynamics of evolutionary processes on phylogenetic trees.
+%
+For speciation dynamics, a process is the rate of speciation
+modeled as an exponential function through time.
+%
+A process may occur on any branch of a tree,
+and all branches downstream of the process are under its influence.
+%
+There may be multiple processes on a single tree,
+each process with its own set of parameters.
+%
+Processes may be nested, where a process within the clade
+controlled by another process may occur.
+%
+In such a case, the process downstream of the ``ancestral'' process
+takes over the dynamics of the branches downstream of it.
+
+
+A BAMM model is a specific configuration of processes
+(and their parameters) on a tree.
+%
+To search for plausible models that explain the observed tree,
+BAMM uses reversible jump Markov Chain Monte Carlo (MCMC).
+%
+This method adds or removes processes on a tree,
+moves processes from one location to another,
+or changes specific parameter values within a process
+in order to test the plausability of many models.
+%
+The advantage of using MCMC for model searching
+is that BAMM does not produce a single best model,
+but rather a set of models and their probability of explaining the data.
+
+
+\subsection*{Metropolis coupled MCMC}
+
+MCMC works by making changes, or ``moves,'' to the current model.
+%
+If the change improves the plausability of the new model,
+this model becomes the current model (i.e., the move is accepted);
+otherwise, the move is accepted with a probability
+proportional to its plausability over the old model.
+%
+Previous versions of BAMM used a single Markov chain
+to explore the landscape of models and their parameter values.
+%
+A single chain, however, may get stuck in local optima,
+resulting in less mixing and more time needed for convergence.
+%
+Here we describe an extension to BAMM
+that implements Metropolis coupled MCMC [\MCMCMC].
+%
+In \MCMCMC, additional chains are introduced
+that are able to explore more of the model landscape.
+%
+Swaps between chains may occur periodically,
+so if a chain is stuck in a local optimum,
+it may immediately jump to another area of the landscape.
+%
+In addition, we describe multi-core \MCMCMC,
+which is able to run each chain on a separate CPU.
 
 
 % Include sufficient details for the work to be repeated
