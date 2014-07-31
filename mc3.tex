@@ -18,6 +18,7 @@
 
 % Definitions to make it easier to type
 \newcommand{\MCMCMC}{(MC)$^{3}$}
+\newcommand{\MCMCMCMC}{(MC)$^{4}$}
 
 \begin{document}
 
@@ -252,6 +253,51 @@ are swapped with acceptance probability
     \left(\frac{f(\theta_k)}{f(\theta_j)}\right)^{\beta_j} \times
     \left(\frac{f(\theta_j)}{f(\theta_k)}\right)^{\beta_k}
 \right\}\]
+
+
+\subsection*{Implementation in BAMM}
+
+In practice, the more Markov chains in the system,
+the more calculations that must be performed,
+and therefore the longer the program takes to run.
+%
+In a computer with multiple processors (``multi-core'')
+each chain could run on a separate processor,
+thereby reducing the actual time the program takes.
+%
+Because of differences among chain states as well as processor speeds,
+chains will not all run at the same time.
+%
+A chain swap event, however, must occur between two chains
+at the same generation.
+%
+Therefore, one must make sure that two chains that will swap
+are ``synchronized.''
+
+
+We implement such synchronization in BAMM
+using a ``global exchange scheme'' \citep{alt04}.
+%
+In this scheme, chains run in parallel without synchronization
+for a specific number of generations at which all chains must reach.
+%
+Once all chains reach this generation, a swap proposal occurs,
+which may or may not be accepted.
+%
+The major disadvantage of this scheme
+is that chains not involved in a swap
+must still be synchronized with those chains in a swap,
+possibly slowing down the run.
+%
+An advantage, however, is that this scheme is easy to implement.
+%
+When a swap is accepted, only the heat of the chains are swapped,
+not their states, making it an efficient way of swapping.
+%
+The cold chain is that chain with the a temperature of 1.
+%
+We call this implementation
+multi-core Metropolis coupled Markov Chain Monte Carlo [\MCMCMCMC].
 
 
 \subsection*{Performance analysis}
