@@ -16,6 +16,9 @@
 \usepackage{natbib}
 \bibliographystyle{mee}
 
+% Include figures
+\usepackage{graphicx}
+
 % Definitions to make it easier to type
 \newcommand{\MCMCMC}{(MC)$^{3}$}
 \newcommand{\MCMCMCMC}{(MC)$^{4}$}
@@ -347,7 +350,42 @@ of the extant species diversity.
 % in tables and figures
 \section*{Results}
 
-The results will go here.
+For both the simulated trees and the empirical tree,
+we found that with \MCMCMC\ runs had higher effective size
+(Figure~\ref{fig:eff-size}).
+%
+For the simulated trees,
+the mean effective size (and 95\% bootstrap confidence interval of the mean)
+without \MCMCMC\ was 402 (331--459),
+whereas with four and eight chains it was 548 (494--603) and 555 (494--611).
+%
+For the skink tree,
+the mean effective size without \MCMCMC\ was 290 (205--380),
+whereas with four chains it was 601 (558--644).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=14cm]{eff-size.pdf}
+\end{center}
+\caption{Effective sizes of the log-likelihood for
+    (A) runs of 100 simulated trees and (B) 25 runs of the skink tree.
+    Runs are sorted by their effective size.}
+\label{fig:eff-size}
+\end{figure}
+
+
+For the simulated trees, which ran for 25 million generations,
+the mean number of hours that runs took with
+one chain, four chains, and eight chains were
+6.3, 6.5, and 6.8 hr.
+%
+For the skink tree, which ran for 100 million generations,
+the means were 18.8 hr for one chain,
+and 20.7 hr for four chains.
+%
+The small difference in running times,
+despite the difference in the number of chains,
+was due to \MCMCMCMC, in which chains run in different processors.
 
 
 % Point out the importance of the results and place them in the context
