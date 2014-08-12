@@ -146,20 +146,21 @@ such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
 
 \subsection*{BAMM}
 
-BAMM is a computer program that searches for models that best explain
+BAMM (Bayesian Analysis of Macroevolutionary Mixtures)
+is a computer program that searches for models that best explain
 complex dynamics of evolutionary processes on phylogenetic trees.
 %
-For speciation dynamics, a process is the rate of speciation
+For speciation dynamics, a process is defined as the rate of speciation
 modeled as an exponential function through time.
 %
 A process may occur on any branch of a tree,
-and all branches downstream of the process are under its influence.
+and all branches downstream of the process are under its control.
 %
 There may be multiple processes on a single tree,
-each process with its own set of parameters.
+and each process has its own set of parameters.
 %
-Processes may be nested, where a process within the clade
-controlled by another process may occur.
+Processes may be nested, where a process may occur
+within a clade controlled by another process.
 %
 In such a case, the process downstream of the ``ancestral'' process
 takes over the dynamics of the branches downstream of it.
@@ -168,7 +169,7 @@ takes over the dynamics of the branches downstream of it.
 A BAMM model is a specific configuration of processes
 (and their parameters) on a tree.
 %
-To search for plausible models that explain the observed tree,
+To search for plausible models that explain the observed phylogenetic tree,
 BAMM uses reversible jump Markov Chain Monte Carlo (MCMC).
 %
 This method adds or removes processes on a tree,
@@ -178,7 +179,8 @@ in order to test the plausability of many models.
 %
 The advantage of using MCMC for model searching
 is that BAMM does not produce a single best model,
-but rather a set of models and their probability of explaining the data.
+but rather a set of models and their probability
+of explaining the topology of the tree.
 
 
 \subsection*{Metropolis coupled MCMC}
