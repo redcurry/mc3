@@ -227,9 +227,9 @@ decreasing the total amount of time the run would otherwise take.
 % Include sufficient details for the work to be repeated
 \section*{Materials and methods}
 
-\subsection*{Metropolis coupled MCMC}
+\subsection*{\MCMCMCMC\ implementation in BAMM}
 
-We followed \citet{alt04} for the implementation of \MCMCMC\ in BAMM.
+We followed \citet{alt04} for the implementation of \MCMCMCMC\ in BAMM.
 %
 For each Markov chain $i \in \{1, 2, \dots\}$, its temperature was set to
 $\beta_i = [1 + \Delta T \times (i - 1)]^{-1}$,
@@ -245,8 +245,8 @@ and chosen such that the probability of accepting a swap
 is between 20\% and 60\% \citep{alt04}.
 
 
-The temperature of chain $i$ goes into the calculation
-of the acceptance probability $\alpha_i$ for a move proposal.
+The acceptance probability $\alpha_i$ for a move proposal
+in chain $i$ contains the temperature $\beta_i$ as part of its calculation.
 %
 For moves that do not involve changes in the dimensionality of the model,
 \[\alpha_i = \text{min}\left\{ 1,
@@ -274,8 +274,6 @@ are swapped with acceptance probability
 \right\}\]
 
 
-\subsection*{Implementation in BAMM}
-
 In practice, the more Markov chains in the system,
 the more calculations that must be performed,
 and therefore the longer the program takes to run.
@@ -290,17 +288,17 @@ chains will not all run at the same time.
 A chain swap event, however, must occur between two chains
 at the same generation.
 %
-Therefore, one must make sure that two chains that will swap
+Therefore, one must make sure that two chains about to swap
 are ``synchronized.''
 
 
 We implement such synchronization in BAMM
 using a ``global exchange scheme'' \citep{alt04}.
 %
-In this scheme, chains run in parallel without synchronization
-for a specific number of generations at which all chains must reach.
+In this scheme, chains run in parallel independently
+for a specific number of generations.
 %
-Once all chains reach this generation, a swap proposal occurs,
+Once all chains reach the same generation, a swap proposal occurs,
 which may or may not be accepted.
 %
 The major disadvantage of this scheme
@@ -313,10 +311,7 @@ An advantage, however, is that this scheme is easy to implement.
 When a swap is accepted, only the heat of the chains are swapped,
 not their states, making it an efficient way of swapping.
 %
-The cold chain is that chain with the a temperature of 1.
-%
-We call this implementation
-multi-core Metropolis coupled Markov Chain Monte Carlo [\MCMCMCMC].
+The cold chain is the chain with a temperature of 1.
 
 
 \subsection*{Performance analysis}
