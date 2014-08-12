@@ -183,15 +183,27 @@ but rather a set of models and their probability
 of explaining the topology of the tree.
 
 
-\subsection*{Metropolis coupled MCMC}
+\subsection*{Multi-core Metropolis coupled MCMC}
 
-MCMC works by making changes, or ``moves,'' to the current model.
+MCMC in BAMM works by making changes, or ``moves,'' to the current model.
 %
-If the change improves the plausability of the new model,
-this model becomes the current model (i.e., the move is accepted);
-otherwise, the move is accepted with a probability
-proportional to its plausability over the old model.
+If the change improves the posterior probability of the new model,
+this model becomes the current model (i.e., the move is accepted).
 %
+Otherwise, the move is accepted with a probability proportional
+to the ratio between the new and old model's posterior probabilities.
+%
+In the end, one obtains a chain of models that are, at least theoretically,
+a sample from the true distribution of models that could explain the tree.
+%
+Two desired properties of the chain of models obtained
+are good mixing and convergence.
+%
+Mixing refers to how independent the samples are in a chain,
+and convergence refers to how well the chain
+approximates the true distribution \citep{giv05}.
+
+
 Previous versions of BAMM used a single Markov chain
 to explore the landscape of models and their parameter values.
 %
@@ -199,17 +211,17 @@ A single chain, however, may get stuck in local optima,
 resulting in less mixing and more time needed for convergence.
 %
 Here we describe an extension to BAMM
-that implements Metropolis coupled MCMC [\MCMCMC].
+that implements multi-core Metropolis coupled MCMC [\MCMCMCMC].
 %
-In \MCMCMC, additional chains are introduced
+In \MCMCMCMC, additional chains are introduced
 that are able to explore more of the model landscape.
 %
 Swaps between chains may occur periodically,
 so if a chain is stuck in a local optimum,
 it may immediately jump to another area of the landscape.
 %
-In addition, we describe multi-core \MCMCMC,
-which is able to run each chain on a separate CPU.
+In addition, chains are able to run in parallel on separate CPUs,
+decreasing the total amount of time the run would otherwise take.
 
 
 % Include sufficient details for the work to be repeated
