@@ -316,7 +316,7 @@ The cold chain is the chain with a temperature of 1.
 
 \subsection*{Performance analysis}
 
-We tested the performance of our implementation of \MCMCMCMC
+We tested the performance of our implementation of \MCMCMCMC\ 
 by examining both mixing and convergence in runs
 configured with and without \MCMCMCMC.
 %
@@ -396,17 +396,19 @@ and the C++ compiler is GCC version 4.8.
 \section*{Results}
 
 For both the simulated trees and the empirical tree,
-we found that with \MCMCMC\ runs had higher effective size
-(Figure~\ref{fig:eff-size}).
+we found that with runs \MCMCMCMC\ had higher effective size
+than those without \MCMCMCMC\ (Figure~\ref{fig:eff-size}).
 %
 For the simulated trees,
 the mean effective size (and 95\% bootstrap confidence interval of the mean)
-without \MCMCMC\ was 402 (331--459),
-whereas with four and eight chains it was 548 (494--603) and 555 (494--611).
+with four and eight chains was 548 (494--603) and 555 (494--611),
+whereas with one chain it was 402 (331--459).
 %
 For the skink tree,
-the mean effective size without \MCMCMC\ was 290 (205--380),
-whereas with four chains it was 601 (558--644).
+the mean effective size with four chains was 601 (558--644),
+whereas with one chain it was 290 (205--380).
+%
+These results indicate that \MCMCMCMC\ improved mixing.
 
 \begin{figure}
 \begin{center}
@@ -419,14 +421,22 @@ whereas with four chains it was 601 (558--644).
 \end{figure}
 
 
+We found that the parallellism of \MCMCMCMC\ 
+reduced the amount of time runs would have taken without it.
+%
 For the simulated trees, which ran for 25 million generations,
 the mean number of hours that runs took with
 one chain, four chains, and eight chains were
 6.3, 6.5, and 6.8 hr.
 %
+Without \MCMCMCMC, the runs with four and eight chains
+would have taken 25.2 and 50.4 hr.
+%
 For the skink tree, which ran for 100 million generations,
-the means were 18.8 hr for one chain,
+the means were 18.8 hr for one chain
 and 20.7 hr for four chains.
+%
+Without \MCMCMCMC, the runs with four chains would have taken 76.2 hr.
 %
 The small difference in running times,
 despite the difference in the number of chains,
