@@ -422,8 +422,18 @@ If $<$ 5\% of differences were 0 or less, then
 one set of runs converged better than the other.
 
 
-Finally, we compared the length of time runs
+Finally, we compared the length of time that runs
 with different number of chains took to complete.
+%
+This comparison will assess whether the parallelism in \MCMCMCMC\ 
+provides a substantial benefit over (non-parallel) \MCMCMC.
+%
+Without parallelism, runs with $n$ number of chains
+should take about $n$ times the length of a run with a single chain.
+%
+With parallelism, and assuming there are as many CPUs as there are chains,
+all runs should take about the same amount of time
+(permitting for chain wait times).
 
 
 % State the results, drawing attention to important details
