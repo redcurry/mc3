@@ -400,7 +400,7 @@ we found that with runs \MCMCMCMC\ had higher effective size
 than those without \MCMCMCMC\ (Figure~\ref{fig:eff-size}).
 %
 For the simulated trees,
-the mean effective size (and 95\% bootstrap confidence interval of the mean)
+the mean effective size (and 95\% bootstrap confidence interval)
 with four and eight chains was 548 (494--603) and 555 (494--611),
 whereas with one chain it was 402 (331--459).
 %
@@ -419,6 +419,26 @@ These results indicate that \MCMCMCMC\ improved mixing.
     Runs are sorted by their effective size.}
 \label{fig:eff-size}
 \end{figure}
+
+
+For the simulated trees,
+we found that the difference in the coefficient of variation
+between runs with one chain and runs with four chains
+overlapped zero 52.6\% of the time.
+%
+For runs with one and eight chains,
+this difference overlapped 51.8\% of the time.
+%
+These results suggest that there was no difference
+in convergence between runs with and without \MCMCMCMC\ in simulated trees.
+%
+For the skink tree,
+the difference in the coefficient of variation
+between runs with one chain and runs with four chains
+overlapped with zero only 4.7\% of the time.
+%
+This result suggests that runs with \MCMCMCMC\ 
+converged better than those without it.
 
 
 We found that the parallellism of \MCMCMCMC\ 
