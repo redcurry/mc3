@@ -455,8 +455,8 @@ as there are chains, all runs should take about the same amount of time
 \section*{Results}
 
 For both the simulated trees and the empirical tree,
-we found that with runs \MCMCMCMC\ had higher effective size
-than those without \MCMCMCMC\ (Figure~\ref{fig:eff-size}).
+we found that runs with \MCMCMC\ had higher effective size
+than those without it (Figure~\ref{fig:eff-size}).
 %
 For the simulated trees,
 the mean effective size (and 95\% bootstrap confidence interval)
@@ -465,9 +465,9 @@ whereas with one chain it was 402 (334--468).
 %
 For the skink tree,
 the mean effective size with four chains was 601 (559--642),
-whereas with one chain it was 290 (206--379).
+whereas with one chain it was only 290 (206--379).
 %
-These results indicate that \MCMCMCMC\ improved mixing.
+These results indicate that \MCMCMC\ improved mixing.
 
 \begin{figure}
 \begin{center}
@@ -489,15 +489,15 @@ For runs with one and eight chains,
 this difference overlapped 51.8\% of the time.
 %
 These results suggest that there was no difference
-in convergence between runs with and without \MCMCMCMC\ in simulated trees.
+in convergence between runs with and without \MCMCMC\ in simulated trees.
 %
-For the skink tree,
+For the skink tree, however,
 the difference in the coefficient of variation
 between runs with one chain and runs with four chains
 overlapped with zero only 4.7\% of the time.
 %
-This result suggests that runs with \MCMCMCMC\ 
-converged better than those without it.
+This result suggests that runs with \MCMCMC\ 
+converged better than those without it in the skink tree.
 
 
 We found that the parallellism of \MCMCMCMC\ 
@@ -516,10 +516,6 @@ the means were 18.8 hr for one chain
 and 20.7 hr for four chains.
 %
 Without \MCMCMCMC, the runs with four chains would have taken 76.2 hr.
-%
-The small difference in running times,
-despite the difference in the number of chains,
-was due to \MCMCMCMC, in which chains run in different processors.
 
 
 % Point out the importance of the results and place them in the context
