@@ -260,9 +260,9 @@ and we implement it in BAMM using a ``global exchange scheme'' \citep{alt04}.
 % Include sufficient details for the work to be repeated
 \section*{Materials and methods}
 
-\subsection*{\MCMCMCMC\ implementation in BAMM}
+\subsection*{\MCMCMC\ and \MCMCMCMC implementation in BAMM}
 
-We followed \citet{alt04} for the implementation of \MCMCMCMC\ in BAMM.
+We followed \citet{alt04} for the implementation of \MCMCMC\ in BAMM.
 %
 For each Markov chain $i \in \{1, 2, \dots\}$, its temperature was set to
 $\beta_i = [1 + \Delta T \times (i - 1)]^{-1}$,
@@ -278,8 +278,8 @@ and chosen such that the probability of accepting a swap
 is between 20\% and 60\% \citep{alt04}.
 
 
-The acceptance probability $\alpha_i$ for a move proposal
-in chain $i$ contains the temperature $\beta_i$ as part of its calculation.
+The acceptance probability $\alpha_i$ for a move proposal in chain $i$
+is a function of the temperature $\beta_i$.
 %
 For moves that do not involve changes in the dimensionality of the model,
 \[\alpha_i = \text{min}\left\{ 1,
@@ -298,7 +298,7 @@ given that the current state is $\theta_i$.
 %
 A similar calculation was done for the acceptance probability for proposals
 that change the dimensionality of the model.
-
+%
 After a certain number of generations, two randomly chosen chains $j$ and $k$
 are swapped with acceptance probability
 \[\alpha = \text{min}\left\{ 1,
@@ -307,7 +307,7 @@ are swapped with acceptance probability
 \right\}\]
 
 
-We implement such synchronization in BAMM
+\MCMCMCMC\ was implemented in BAMM
 using a ``global exchange scheme'' \citep{alt04}.
 %
 In this scheme, chains run in parallel independently
@@ -331,9 +331,9 @@ The cold chain is the chain with a temperature of 1.
 
 \subsection*{Performance analysis}
 
-We tested the performance of our implementation of \MCMCMCMC\ 
+We tested the performance of our implementation of \MCMCMC\ 
 by examining both mixing and convergence in runs
-configured with and without \MCMCMCMC.
+configured with and without \MCMCMC.
 %
 We tested two sets of runs, one with simulated trees
 and the other with an empirical tree of Australian skinks \citep{rab14sysbio}.
@@ -347,7 +347,7 @@ contained four shifts to a diversity-dependent speciation-extinction process.
 We used BAMM (version 2.0.1) to model rates of species diversification
 across each tree.
 %
-Runs with \MCMCMCMC\ were configured with either four or eight chains,
+Runs with \MCMCMC\ were configured with either four or eight chains,
 the temperature increment parameter $\Delta T$ was set to 0.1,
 and the swap period was set to 1,000 generations.
 %
@@ -355,14 +355,13 @@ All runs went for 25 million generations,
 sampling every 25,000 generations to produce a total of 1,000 samples.
 
 
-For the emprical tree, we used the maximum clade credibility (MCC) tree
+For the emprical tree, we used the maximum clade credibility tree
 of Australian sphenomorphine skinks reconstructed by \citet{rab14sysbio}.
 %
 We used BAMM (version 2.0.0) to model rates of species diversification
-across the tree with and without \MCMCMCMC.
+across the tree with and without \MCMCMC.
 %
-We performed 25 runs with four chains [i.e., with \MCMCMC]
-and 25 runs a single Markov chain [i.e., without \MCMCMC].
+We performed 25 runs with four Markov chains and 25 runs a single chain.
 %
 The value of $\Delta T$ was set to 0.1
 and the swap period was set to 1,000 generations.
@@ -377,14 +376,14 @@ of the extant species diversity.
 BAMM runs were performed on Flux,
 a high performance computer cluster at the University of Michigan.
 %
-Each computer node contains 8--16 processor cores
+Each computer node contained 8--16 processor cores
 (2.53--2.67 GHz Intel Xeon) with at least 4 GB of RAM per core.
 %
-Nodes are interconnected with 40Gbps InfiniBand networking.
+Nodes were interconnected with 40Gbps InfiniBand networking.
 %
 The operating system on each processor
-is Red Hat Enterprise Linux version 6.3,
-and the C++ compiler is GCC version 4.8.
+was Red Hat Enterprise Linux version 6.3,
+and the C++ compiler was GCC version 4.8.
 
 
 The mixing of a chain was assessed by calculating
@@ -397,8 +396,8 @@ The effective size was calculated using
 the coda library (version 0.16-1) in R (version 3.0.1).
 %
 For both types of runs---those with simulated trees and the skink tree---%
-we compared the effective size of the cold chain in runs with \MCMCMCMC\ 
-to the effective size of the single chain in runs without \MCMCMCMC.
+we compared the effective size of the cold chain in runs with \MCMCMC\ 
+to the effective size of the single chain in runs without \MCMCMC.
 %
 For each treatment (e.g., runs with 4 chains),
 we first calculated the effective size for each run
@@ -408,9 +407,9 @@ The 95\% confidence interval of the mean was calculated
 by repeatedly calculating the mean effective size
 for each of 10,000 random samples (with replacement) of the data.
 %
-If \MCMCMCMC\ provides better mixing than without it,
-the effective size in runs with \MCMCMCMC\ should be higher
-than the effective size in runs without \MCMCMCMC
+If \MCMCMC\ provides better mixing than without it,
+the effective size in runs with \MCMCMC\ should be higher
+than the effective size in runs without \MCMCMC\ 
 and their 95\% confidence intervals should not overlap.
 
 
@@ -423,15 +422,15 @@ have a higher CV than runs that have converged.
 %
 Again, for both types of runs,
 we calculated the difference between the CV
-of the single chain in runs without \MCMCMCMC\ 
-to those of the cold chain in runs with \MCMCMCMC.
+of the single chain in runs without \MCMCMC\ 
+to those of the cold chain in runs with \MCMCMC.
 %
 If this difference is greater than 0,
-then runs with \MCMCMCMC\ converge better than those without it.
+then runs with \MCMCMC\ converge better than those without it.
 %
 To generate a distribution of differences to which to compare to 0,
 we calculated differences between CVs for 10,000 random samples
-of runs with and without \MCMCMCMC.
+of runs with and without \MCMCMC.
 %
 If $<$ 5\% of differences were 0 or less, then
 one set of runs converged better than the other.
@@ -446,9 +445,9 @@ provides a substantial benefit over (non-parallel) \MCMCMC.
 Without parallelism, runs with $n$ number of chains
 should take about $n$ times the length of a run with a single chain.
 %
-With parallelism, and assuming there are as many CPUs as there are chains,
-all runs should take about the same amount of time
-(permitting for chain wait times).
+With parallelism, and assuming there are as many computer processors
+as there are chains, all runs should take about the same amount of time
+(allowing for chain wait times).
 
 
 % State the results, drawing attention to important details
