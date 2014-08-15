@@ -114,9 +114,9 @@ and we recommend their use in future studies of macroevolutionary dynamics.
 
 \subsection*{Background}
 
-The variation in species richness and phenotypic diversity
-we see today across groups of organisms is partly due
-to the stochastic evolutionary processes of speciation and extinction.
+The variation in species richness and phenotypic diversity we see today
+across groups of organisms is partly due to the stochastic
+evolutionary processes of speciation and extinction \citep{rab14plos}.
 %
 Rates of speciation and extinction differ among groups
 and have changed through time as a result of unique historical events,
@@ -125,7 +125,7 @@ such as environmental, phenotypic, and genetic changes.
 For example, speciation could dramatically increase
 during an adaptive radiation of a species on a newly colonized island.
 %
-The phenotypic diversity of this colonizing group
+Consequently, the phenotypic diversity of this colonizing group
 would also increase as organisms adapt and fill
 the available ecological niches.
 
@@ -134,16 +134,13 @@ The processes of speciation and extinction within a group of organisms
 have shaped the topology of their phylogenetic tree.
 %
 Phylogenetic trees can therefore be used to extract
-information about the evolutionary processes that shaped them.
+information about the complex dynamics that shaped them \citep{rab14plos}.
 %
 For example, an adaptive radiation would show up
 as a burst in the number of splits and branches on a tree.
 %
-Reflecting the complex dynamics of diversification,
-a phylogenetic tree would likely be composed of several processes.
-%
-Each process would affect the rate of diversification or morphological evolution
-at a rate different from another such process.
+In addition, a phylogenetic tree would likely be composed of several processes,
+each with a unique rate of diversification or morphological evolution.
 %
 A new method was recently developed to identify and characterize
 such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
@@ -153,7 +150,7 @@ such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
 
 BAMM (Bayesian Analysis of Macroevolutionary Mixtures)
 is a computer program that searches for models that best explain
-complex dynamics of evolutionary processes on phylogenetic trees.
+the complex dynamics of evolutionary processes on phylogenetic trees.
 %
 For speciation dynamics, a process is defined as the rate of speciation
 modeled as an exponential function through time.
@@ -161,8 +158,8 @@ modeled as an exponential function through time.
 A process may occur on any branch of a tree,
 and all branches downstream of the process are under its control.
 %
-There may be multiple processes on a single tree,
-and each process has its own set of parameters.
+There may be multiple processes on a tree,
+and each process can have its own set of parameters.
 %
 Processes may be nested, where a process may occur
 within a clade controlled by another process.
@@ -185,14 +182,14 @@ in order to test the plausability of many models.
 The advantage of using MCMC for model searching
 is that BAMM does not produce a single best model,
 but rather a set of models and their probability
-of explaining the topology of the tree.
+of explaining the topology of the tree \citep{rab14plos}.
 
 
-\subsection*{Multi-core Metropolis coupled MCMC}
+\subsection*{Metropolis coupled MCMC}
 
-MCMC in BAMM works by making changes, or ``moves,'' to the current model.
+MCMC in BAMM works by proposing changes, or ``moves,'' to the current model.
 %
-If the change improves the posterior probability of the new model,
+If the change would improve the posterior probability of the new model,
 this model becomes the current model (i.e., the move is accepted).
 %
 Otherwise, the move is accepted with a probability proportional
@@ -213,20 +210,51 @@ Previous versions of BAMM used a single Markov chain
 to explore the landscape of models and their parameter values.
 %
 A single chain, however, may get stuck in local optima,
-resulting in less mixing and more time needed for convergence.
+resulting in less mixing and more time needed for convergence \citep{alt04}.
 %
 Here we describe an extension to BAMM
-that implements multi-core Metropolis coupled MCMC [\MCMCMCMC].
+that implements Metropolis coupled MCMC [\MCMCMC].
 %
-In \MCMCMCMC, additional chains are introduced
+In \MCMCMC, additional chains are introduced
 that are able to explore more of the model landscape.
 %
-Swaps between chains may occur periodically,
-so if a chain is stuck in a local optimum,
-it may immediately jump to another area of the landscape.
+These additional chains are ``heated''---%
+they have a ``temperature'' property
+that goes into the acceptance probability calculation
+so that heated chains accept proposals more frequently.
 %
-In addition, chains are able to run in parallel on separate CPUs,
+In effect, heated chains ``see'' the landscape
+more flattened and therefore are able to explore more of it
+and are less likely to get stuck.
+%
+Swaps between chains may occur periodically,
+so if a chain does get stuck in a local optimum,
+it may immediately jump to another area of the landscape.
+
+
+We also implement multi-core \MCMCMC\ [\MCMCMCMC], where each chain
+runs on a separate computer processer in parallel to other chains,
 decreasing the total amount of time the run would otherwise take.
+%
+In practice, the more Markov chains in the system,
+the more calculations that must be performed,
+and therefore the longer the program takes to run.
+%
+In a computer with multiple processors (``multi-core'')
+each chain could run on a separate processor,
+thereby reducing the actual time the program takes.
+%
+Because of differences among chain states as well as processor speeds,
+chains will not all run at the same time.
+%
+A chain swap event, however, must occur between two chains
+at the same generation.
+%
+Therefore, one must make sure that two chains about to swap
+are ``synchronized.''
+%
+There are various ways to implement this synchronization,
+and we implement it in BAMM using a ``global exchange scheme'' \citep{alt04}.
 
 
 % Include sufficient details for the work to be repeated
@@ -277,24 +305,6 @@ are swapped with acceptance probability
     \left(\frac{f(\theta_k)}{f(\theta_j)}\right)^{\beta_j} \times
     \left(\frac{f(\theta_j)}{f(\theta_k)}\right)^{\beta_k}
 \right\}\]
-
-
-In practice, the more Markov chains in the system,
-the more calculations that must be performed,
-and therefore the longer the program takes to run.
-%
-In a computer with multiple processors (``multi-core'')
-each chain could run on a separate processor,
-thereby reducing the actual time the program takes.
-%
-Because of differences among chain states as well as processor speeds,
-chains will not all run at the same time.
-%
-A chain swap event, however, must occur between two chains
-at the same generation.
-%
-Therefore, one must make sure that two chains about to swap
-are ``synchronized.''
 
 
 We implement such synchronization in BAMM
