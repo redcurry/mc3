@@ -68,32 +68,37 @@ Previous versions of BAMM used a single Markov chain
 to explore the landscape of models and their parameter values.
 %
 A single chain, however, may get stuck in local optima,
-resulting in less mixing and more time needed for convergence.
+resulting in poor performance in both mixing and convergence.
 
 \textbf{2.}
 Here we describe an extension to BAMM
 that implements Metropolis coupled MCMC [\MCMCMC].
 %
-In \MCMCMC, additional chains are introduced
+With \MCMCMC, additional chains are introduced
 that are able to explore more of the model landscape.
 %
 Swaps between chains may occur periodically,
 so if a chain is stuck in a local optimum,
 it may immediately jump to another area of the landscape.
 %
-In addition, we describe multi-core \MCMCMC,
-which is able to run each chain on a separate CPU.
+In addition, we describe multi-core \MCMCMC\ [\MCMCMCMC]
+which runs each chain on a separate computer processor.
 
 \textbf{3.}
-We find that in both simulated data sets and an empirical data set,
-\MCMCMC\ mixes better and reduces the time to convergence
-compared to a single-chain MCMC.
+We find that in both simulated trees and an empirical tree,
+runs with \MCMCMC\ mix better than those with a single chain.
 %
-Greater than four chains results in diminishing returns.
+In simulated trees, convergence in runs with or without \MCMCMC\ 
+is about the same, but in the skink tree,
+convergence is better in runs with \MCMCMC\ than those without.
+%
+\MCMCMCMC\ speeds up the run times close to $n$-fold
+for runs with $n$ chains.
 
 \textbf{4.}
-\MCMCMC\ greatly improves the reliability of results in BAMM,
-and we recommend its use in all future studies of macroevolutionary dynamics.
+\MCMCMC\ and \MCMCMCMC\ greatly improve
+the efficiency and speed of runs in BAMM,
+and we recommend their use in future studies of macroevolutionary dynamics.
 }
 
 \begin{flushleft}
