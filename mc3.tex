@@ -361,13 +361,16 @@ of Australian sphenomorphine skinks reconstructed by \citet{rab14sysbio}.
 We used BAMM (version 2.0.0) to model rates of species diversification
 across the tree with and without \MCMCMC.
 %
-We performed 25 runs with four Markov chains and 25 runs a single chain.
+As in the simulated trees, runs with \MCMCMC
+were configured with either four or eight chains.
 %
 The value of $\Delta T$ was set to 0.1
 and the swap period was set to 1,000 generations.
 %
 All runs went for 100 million generations,
 sampling every 100,000 to produce a total of 1,000 samples.
+%
+All runs were replicated 25 times.
 %
 We assumed that the taxon sampling fraction was 85\%
 of the extant species diversity.
@@ -463,8 +466,8 @@ the mean effective size (and 95\% bootstrap confidence interval)
 with four and eight chains was 548 (493--601) and 555 (496--613),
 whereas with one chain it was 402 (334--468).
 %
-For the skink tree,
-the mean effective size with four chains was 601 (559--642),
+For the skink tree, the mean effective size
+with four chains and eight chains was 601 (559--642) and 670 (636--703),
 whereas with one chain it was only 290 (206--379).
 %
 These results indicate that \MCMCMC\ improved mixing.
@@ -496,6 +499,9 @@ the difference in the coefficient of variation
 between runs with one chain and runs with four chains
 overlapped with zero only 4.7\% of the time.
 %
+For runs with one and eight chains,
+this difference overlapped 26.2\% of the time.
+%
 This result suggests that runs with \MCMCMC\ 
 converged better than those without it in the skink tree.
 
@@ -512,10 +518,10 @@ Without \MCMCMCMC, the runs with four and eight chains
 would have taken 25.2 and 50.4 hr.
 %
 For the skink tree, which ran for 100 million generations,
-the means were 18.8 hr for one chain
-and 20.7 hr for four chains.
+the means were 18.8, 20.7, and 21.4 hr for one, four, and eight chains.
 %
-Without \MCMCMCMC, the runs with four chains would have taken 76.2 hr.
+Without \MCMCMCMC, the runs with four and eight chains
+would have taken 75.2 (3.1 d) and 150.5 hr (6.3 d).
 
 
 % Point out the importance of the results and place them in the context
