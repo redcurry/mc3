@@ -198,21 +198,21 @@ If the change would improve the posterior probability of the new model,
 this model becomes the current model (i.e., the move is accepted).
 %
 Otherwise, the move is accepted with a probability proportional
-to the ratio between the new and old model's posterior probabilities.
+to the ratio of probabilities of proposed and current states.
 %
-In the end, one obtains a chain of models that are, at least theoretically,
-a sample from the true distribution of models that could explain the tree.
+In the end, one obtains a chain of configurations that are,
+at least theoretically, a sample from the true distribution
+of configurations that could explain the tree.
 %
-Two desired properties of the chain of models obtained
-are good mixing and convergence.
+Two desired properties of the chain obtained are good mixing and convergence.
 %
 Mixing refers to how independent the samples are in a chain,
 and convergence refers to how well the chain
-approximates the true distribution \citep{giv05}.
+approximates the true posterior distribution \citep{giv05}.
 
 
-Previous versions of BAMM used a single Markov chain
-to explore the landscape of models and their parameter values.
+BAMM was originally implemented using a single Markov chain
+to explore the landscape of model configurations and their parameter values.
 %
 A single chain, however, may get stuck in local optima,
 resulting in less mixing and more time needed for convergence \citep{alt04}.
@@ -223,43 +223,19 @@ that implements Metropolis coupled MCMC [\MCMCMC].
 In \MCMCMC, additional chains are introduced
 that are able to explore more of the model landscape.
 %
-These additional chains are ``heated''---%
-they have a ``temperature'' property
-that goes into the acceptance probability calculation
-so that heated chains accept proposals more frequently.
-%
-In effect, heated chains ``see'' the landscape
-more flattened and therefore are able to explore more of it
+These additional chains are ``heated,''
+which means that the probability landscape is flattened
+and therefore are able to explore more of it
 and are less likely to get stuck.
 %
 Swaps between chains may occur periodically,
 so if a chain does get stuck in a local optimum,
 it may immediately jump to another area of the landscape.
-
-
-We also implement multi-core \MCMCMC\ [\MCMCMCMC], where each chain
+%
+To offset the computational cost of \MCMCMC, we implement
+multi-core \MCMCMC\ [\MCMCMCMC], where each chain
 runs on a separate computer processer in parallel to other chains,
 decreasing the total amount of time the run would otherwise take.
-%
-In practice, the more Markov chains in the system,
-the more calculations that must be performed,
-and therefore the longer the program takes to run.
-%
-In a computer with multiple processors (``multi-core'')
-each chain could run on a separate processor,
-thereby reducing the actual time the program takes.
-%
-Because of differences among chain states as well as processor speeds,
-chains will not all run at the same time.
-%
-A chain swap event, however, must occur between two chains
-at the same generation.
-%
-Therefore, one must make sure that two chains about to swap
-are ``synchronized.''
-%
-There are various ways to implement this synchronization,
-and we implement it in BAMM using a ``global exchange scheme'' \citep{alt04}.
 
 
 % Include sufficient details for the work to be repeated
@@ -312,8 +288,26 @@ are swapped with acceptance probability
 \right\}\]
 
 
-\MCMCMCMC\ was implemented in BAMM
-using a ``global exchange scheme'' \citep{alt04}.
+In practice, the more Markov chains in the system,
+the more calculations that must be performed,
+and therefore the longer the program takes to run.
+%
+In a computer with multiple processors (``multi-core'')
+each chain could run on a separate processor,
+thereby reducing the actual time the program takes.
+%
+Because of differences among chain states as well as processor speeds,
+chains will not all run at the same time.
+%
+A chain swap event, however, must occur between two chains
+at the same generation.
+%
+Therefore, one must make sure that two chains about to swap
+are ``synchronized.''
+
+
+There are various ways to implement this synchronization,
+and we implement it in BAMM using a ``global exchange scheme'' \citep{alt04}.
 %
 In this scheme, chains run in parallel independently
 for a specific number of generations.
