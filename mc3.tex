@@ -151,20 +151,38 @@ such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
 \subsection*{BAMM}
 
 BAMM (Bayesian Analysis of Macroevolutionary Mixtures)
-is a computer program that simulates a posterior distribution
-of evolutionary processes on phylogenetic trees.
+is a computer program that identifies and describes
+processes of diversification (i.e., speciation and extinction)
+or phenotypic evolution on phylogenetic trees.
 %
-A process is a historical event,
-modeled by some function of parameters,
-that ultimately determines the current state of a clade.
+BAMM assumes that trees are shaped by heterogeneous mixtures
+of one or more evolutionary processes,
+modeled by some function of parameters.
 %
-For example, in speciation dynamics,
+For example, in diversification,
 a process is the rate of speciation
 modeled as an exponential function through time.
 %
-A process may occur on any branch of a tree,
-and all branches downstream of the process are under its control.
+Similarly, in phenotypic evolution,
+a process is the rate of phenotypic change (under Brownian motion)
+modeled as an exponential function through time.
 %
+The start of a process is called an event or shift,
+and it may occur on any branch of the tree.
+%
+All branches downstream of an event share the same process.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=14cm]{tree.pdf}
+\end{center}
+\caption{Effective sizes of the log-likelihood for
+    (A) runs of 100 simulated trees and (B) 25 runs of the skink tree.
+    Runs are sorted by their effective size.}
+\label{fig:tree}
+\end{figure}
+
+
 There may be multiple processes on a tree,
 and each process can have its own set of parameters values.
 %
