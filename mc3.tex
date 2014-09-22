@@ -159,45 +159,50 @@ BAMM assumes that trees are shaped by heterogeneous mixtures
 of one or more evolutionary processes,
 modeled by some function of parameters.
 %
-For example, in diversification,
+For example, in speciation dynamics,
 a process is the rate of speciation
 modeled as an exponential function through time.
 %
-Similarly, in phenotypic evolution,
-a process is the rate of phenotypic change (under Brownian motion)
-modeled as an exponential function through time.
+Mixtures of processes are heterogeneous because each process
+is modeled independently, with their own parameter values.
 %
-The start of a process is called an event or shift,
-and it may occur on any branch of the tree.
-%
-All branches downstream of an event share the same process.
+Therefore, one process may indicate an increase in speciation rate,
+while another may indicate a decrease in the same tree (Figure~\ref{fig:tree}).
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=14cm]{tree.pdf}
+\includegraphics[width=7cm]{tree.pdf}
 \end{center}
-\caption{Effective sizes of the log-likelihood for
-    (A) runs of 100 simulated trees and (B) 25 runs of the skink tree.
-    Runs are sorted by their effective size.}
+\caption{Phylogenetic tree with a mixture of macroevolutionary processes.
+    Each colored circle (A--D) is an event,
+    which marks the start of a new process.
+    Branches that share the same color share the same process.
+    The root event (A) marks the start of the background process,
+    and events B--D represent shifts to different processes.}
 \label{fig:tree}
 \end{figure}
 
 
-There may be multiple processes on a tree,
-and each process can have its own set of parameters values.
+We call the start of a process an event or shift,
+and it may occur on any branch of the tree
+(e.g., colored circles in Figure~\ref{fig:tree}).
 %
-A process may occur within a clade controlled by another process.
+All branches downstream of an event share the same process
+(e.g., all branches downstream of event D
+in Figure~\ref{fig:tree} share the same process).
+%
+An event may occur within a clade controlled by another process.
+(e.g., event C in Figure~\ref{fig:tree}).
 %
 In such a case, the process downstream of the ``ancestral'' process
 takes over the dynamics of the branches downstream of it.
 %
 A tree must always have a process at its root.
+(e.g., event A in Figure~\ref{fig:tree}).
 
 
-BAMM simulates configurations of processes (and their parameters) on a tree.
-%
-To sample plausible configurations that explain the observed data,
-BAMM uses reversible jump Markov Chain Monte Carlo (MCMC).
+BAMM uses reversible jump Markov Chain Monte Carlo (MCMC)
+to sample plausible process configurations that explain the observed data.
 %
 This method adds or removes processes on a tree,
 moves processes from one location to another,
