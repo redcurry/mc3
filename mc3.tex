@@ -356,9 +356,10 @@ The cold chain is the chain with a temperature of 1.
 
 \subsection*{Performance analysis}
 
-We tested the performance of our implementation of \MCMCMC\ 
-by examining both mixing and convergence in runs
-configured with and without \MCMCMC.
+We analyzed three measures of performance for our implementation of \MCMCMC:
+(1) mixing, (2) convergence, and (3) median log-likelihood.
+%
+For our \MCMCMCMC\ implementation, we analyzed its speed.
 %
 We tested two sets of runs, one with simulated trees
 and the other with an empirical tree of Australian skinks \citep{rab14sysbio}.
@@ -414,6 +415,8 @@ was Red Hat Enterprise Linux version 6.3,
 and the C++ compiler was GCC version 4.8.
 
 
+\subsubsection*{Mixing}
+
 The mixing of a chain was assessed by calculating
 the effective size of the chain's log-likelihood values.
 %
@@ -441,6 +444,8 @@ than the effective size in runs without \MCMCMC\
 and their 95\% confidence intervals should not overlap.
 
 
+\subsubsection*{Convergence}
+
 The convergence of a treatment was assessed
 by calculating the coefficient of variation (CV) of the mean number of shifts
 estimated across all runs in the treatment.
@@ -463,6 +468,8 @@ of runs with and without \MCMCMC.
 If $<$ 5\% of differences were 0 or less, then
 one set of runs converged better than the other.
 
+
+\subsubsection*{Speed}
 
 Finally, we compared the length of time that runs
 with different number of chains took to complete.
