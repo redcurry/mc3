@@ -446,27 +446,36 @@ and their 95\% confidence intervals should not overlap.
 
 \subsubsection*{Convergence}
 
-The convergence of a treatment was assessed
-by calculating the coefficient of variation (CV) of the mean number of shifts
-estimated across all runs in the treatment.
+If an MCMC simulation samples from the target distribution
+of posterior probabilities, it has reached convergence \citep{giv05}.
 %
-The assumption is that runs that have not converged
-have a higher CV than runs that have converged.
+Because the target distribution is often unknown, however,
+it is typically impossible to know whether an MCMC simulation has converged.
 %
-Again, for both types of runs,
-we calculated the difference between the CV
-of the single chain in runs without \MCMCMC\ 
-to those of the cold chain in runs with \MCMCMC.
+But if multiple MCMC simulations sample from very different distributions,
+then they have certainly not converged on the target distribution.
 %
-If this difference is greater than 0,
-then runs with \MCMCMC\ converge better than those without it.
+It is also true that if multiple MCMC simulations have converged,
+then they must all sample from the same target distribution.
 %
-To generate a distribution of differences to which to compare to 0,
-we calculated differences between CVs for 10,000 random samples
-of runs with and without \MCMCMC.
+These facts imply that the greater the variance in the sampled distributions
+of multiple MCMC simulations, the less likely that they have converged.
 %
-If $<$ 5\% of differences were 0 or less, then
-one set of runs converged better than the other.
+Note that if multiple MCMC simulations sample from the same distribution,
+it is not guaranteed that they have converged,
+for they may all be stuck in the same region of the likelihood space.
+
+
+For each treatment,
+we measured the variance of the median log-likelihoods
+(20\% burn-in) sampled by each replicate MCMC simulation.
+%
+We used the median log-likelihood as a summary statistic
+for the distribution sampled by an MCMC simulation.
+%
+To statistically compare these variances between treatments,
+we calculated the 5\% lower and upper bounds of 10,000 variances,
+each calculated from a random sample of the replicate variances.
 
 
 \subsubsection*{Speed}
