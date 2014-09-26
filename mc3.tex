@@ -446,7 +446,7 @@ and their 95\% confidence intervals should not overlap.
 
 \subsubsection*{Convergence}
 
-If an MCMC simulation samples from the target distribution
+If an MCMC simulation truly samples from the target distribution
 of posterior probabilities, it has reached convergence \citep{giv05}.
 %
 Because the target distribution is often unknown, however,
@@ -466,16 +466,27 @@ it is not guaranteed that they have converged,
 for they may all be stuck in the same region of the likelihood space.
 
 
-For each treatment,
-we measured the variance of the median log-likelihoods
-(20\% burn-in) sampled by each replicate MCMC simulation.
+To compare the degree of convergence among the three treatments
+(i.e., runs with one, four, or eight chains),
+we compared the variances of the distributions
+that were sampled by the replicate runs in each treatment.
 %
-We used the median log-likelihood as a summary statistic
-for the distribution sampled by an MCMC simulation.
+To represent a sampled distribution of an MCMC run,
+we used the median of the sampled log-likelihoods (after a 20\% burn-in).
 %
-To statistically compare these variances between treatments,
-we calculated the 5\% lower and upper bounds of 10,000 variances,
-each calculated from a random sample of the replicate variances.
+Therefore, we compared among treatments
+the variances of their replicate median log-likelihoods.
+%
+To statistically compare these variances,
+we first generated 10,000 random samples with replacement
+of each treatment's variances.
+%
+We then calculated their lower and upper 5\% quantiles
+and looked at the amount of overlap between treatments.
+%
+These analyses were performed only on runs using the skink tree
+because only with these runs did all replicates use the same tree,
+and therefore shared the same target posterior distribution.
 
 
 \subsubsection*{Speed}
@@ -497,6 +508,8 @@ as there are chains, all runs should take about the same amount of time
 % State the results, drawing attention to important details
 % in tables and figures
 \section*{Results}
+
+\subsection*{Mixing}
 
 For both the simulated trees and the empirical tree,
 we found that runs with \MCMCMC\ had higher effective size
@@ -524,28 +537,25 @@ These results indicate that \MCMCMC\ improved mixing.
 \end{figure}
 
 
-For the simulated trees,
-we found that the difference in the coefficient of variation
-between runs with one chain and runs with four chains
-overlapped zero 52.6\% of the time.
-%
-For runs with one and eight chains,
-this difference overlapped 51.8\% of the time.
-%
-These results suggest that there was no difference
-in convergence between runs with and without \MCMCMC\ in simulated trees.
-%
-For the skink tree, however,
-the difference in the coefficient of variation
-between runs with one chain and runs with four chains
-overlapped with zero only 4.7\% of the time.
-%
-For runs with one and eight chains,
-this difference overlapped 26.2\% of the time.
-%
-This result suggests that runs with \MCMCMC\ 
-converged better than those without it in the skink tree.
+\subsection*{Convergence}
 
+For the skink runs without \MCMCMC,
+the lower and upper 5\% quantiles ($\times$ 1,000)
+of the median log-likelihood variances were 9.80--20.69 (mean of 14.99).
+%
+For the treatments with four and eight chains,
+the quantiles ($\times$ 1,000) were 4.71--10.53 (mean of 7.46)
+and 4.32--10.70 (mean of 7.35).
+%
+These results indicate that the median log-likelihood variance
+in runs without \MCMCMC\ were higher than those with \MCMCMC
+(with a small amount of overlap).
+%
+These result suggest that runs with \MCMCMC\ 
+converged better than those without \MCMCMC.
+
+
+\subsection*{Speed}
 
 We found that the parallellism of \MCMCMCMC\ 
 reduced the amount of time runs would have taken without it.
