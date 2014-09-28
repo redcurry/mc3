@@ -489,6 +489,26 @@ because only with these runs did all replicates use the same tree,
 and therefore shared the same target posterior distribution.
 
 
+\subsubsection*{Median log-likelihood}
+
+The purpose of the MCMC method is to approximate
+the target distribution of posterior probabilities,
+where each probability is proportional
+to the likelihood that a specific shift configuration
+explains the observed phylogenetic data.
+%
+If the MCMC simulation has converged,
+it will spend relatively more time sampling
+from areas with high likelihoods.
+%
+These areas contain shift configurations
+that better explain the observed data than others.
+%
+Therefore, one measure of performance for a particular MCMC method
+is the size of the likelihood value it often samples
+within a certain amount of time.
+
+
 \subsubsection*{Speed}
 
 Finally, we compared the length of time that runs
