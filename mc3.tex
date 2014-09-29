@@ -506,7 +506,26 @@ that better explain the observed data than others.
 %
 Therefore, one measure of performance for a particular MCMC method
 is the size of the likelihood value it often samples
-within a certain amount of time.
+after a certain number of generations.
+
+
+For the runs with simulated trees,
+we compared the median log-likelihoods
+among the three treatments.
+%
+Because replicate runs in a treatment used different trees,
+the median log-likelihoods were compared per replicate.
+%
+For the runs with the skink tree,
+we compared the means of the median log-likelihoods
+of all replicate runs among the three treatments.
+%
+To statistically compare the log-likelihood means,
+we first generated 10,000 random samples with replacement
+of each treatment's log-likelihoods means.
+%
+We then calculated their lower and upper 5\% quantiles
+and looked at the amount of overlap between treatments.
 
 
 \subsubsection*{Speed}
