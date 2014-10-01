@@ -206,7 +206,7 @@ A tree must always have a process at its root.
 
 BAMM uses reversible jump Markov Chain Monte Carlo (MCMC)
 to sample shift configurations and their probability
-that they explain the observed phylogenetic data.
+that they explain the observed phylogenetic data \citep{rab14plos}.
 %
 MCMC in BAMM works by proposing changes, or `moves,'
 to the current shift configuration
@@ -219,7 +219,27 @@ the move is accepted and the new configuration becomes the current one.
 %
 Otherwise, the move is accepted with a probability proportional
 to the ratio of probabilities of the proposed and current configurations.
+
+
+If the move does not change the dimensionality of the shift configuration
+(i.e., adding or deleting events),
+the acceptance probability follows the Metropolis-Hastings formula:
+\[\alpha = \text{min}\left\{ 1,
+    \frac{f(\theta')}{f(\theta)} \times
+    \frac{\pi(\theta')}{\pi(\theta)} \times
+    \frac{q(\theta | \theta')}{q(\theta' | \theta)}
+\right\}\]
+where $\theta$ and $\theta'$ are parameter vectors
+corresponding to the current and proposed states,
+$f$ and $\pi$ are the corresponding likelihood and prior density functions,
+and $q(\theta' | \theta)$ is the relative probability
+of proposing a move to parameter vector $\theta'$,
+given that the current state is $\theta$.
 %
+For moves that change the dimensionality,
+a more general equation is used \citep[see][]{rab14plos}.
+
+
 At the end of the MCMC simulation, one obtains a chain of configurations
 that are, theoretically, a sample from the true distribution
 of posterior probabilities,
