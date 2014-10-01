@@ -148,7 +148,7 @@ We recently developed a new method to identify and characterize
 such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
 
 
-\subsection*{BAMM}
+\subsection*{BAMM and Markov chain Monte Carlo}
 
 BAMM (Bayesian Analysis of Macroevolutionary Mixtures)
 is a computer program that identifies and describes
@@ -184,9 +184,11 @@ within the same tree (Figure~\ref{fig:tree}).
 \end{figure}
 
 
-We call the start of a process an event or shift,
-and it may occur on any branch of the tree
+We call the start of a process an `event' or `shift,'
+which may occur on any branch of the tree
 (e.g., colored circles in Figure~\ref{fig:tree}).
+%
+The number of events on a tree follow a compound Poisson process.
 %
 All branches downstream of an event share the same process
 (e.g., all branches downstream of event D
@@ -203,23 +205,14 @@ A tree must always have a process at its root.
 
 
 BAMM uses reversible jump Markov Chain Monte Carlo (MCMC)
-to sample plausible process configurations that explain the observed data.
+to sample shift configurations and their probability
+that they explain the observed phylogenetic data.
 %
-This method adds or removes processes on a tree,
-moves processes from one location to another,
-or changes specific parameter values within a process
-in order to sample many process configurations.
-%
-The advantage of using MCMC
-is that BAMM does not produce a single best configuration,
-but rather a set of configurations and their probability
-of explaining the shape or data of the tree \citep{rab14plos}.
-
-
-\subsection*{Metropolis coupled MCMC}
-
 MCMC in BAMM works by proposing changes, or `moves,'
-to the current shift configuration.
+to the current shift configuration
+(e.g., adding or deleting an event,
+moving the location of an event,
+and changing specific parameter values of an event).
 %
 If the move improves the posterior probability of the new configuration,
 the move is accepted and the new configuration becomes the current one.
@@ -233,18 +226,23 @@ of posterior probabilities,
 where each probability is proportional to the likelihood
 that a shift configuration explains the phylogenetic data.
 %
-Two desired properties of the chain obtained are good mixing and convergence.
-%
-Mixing refers to how independent the samples are in a chain,
-and convergence refers to how well the chain
-approximates the true posterior distribution \citep{giv05}.
+The advantage of using MCMC
+is that BAMM does not produce a single best configuration,
+but rather a set of configurations and their probability
+of explaining the shape or data of the tree \citep{rab14plos}.
 
+
+\subsection*{Metropolis coupled MCMC}
 
 BAMM was originally implemented using a single Markov chain
 to explore the landscape of model configurations and their parameter values.
 %
 A single chain, however, may get stuck in local optima,
 resulting in less mixing and more time needed for convergence \citep{alt04}.
+%
+Mixing refers to how independent the samples are in a chain,
+and convergence refers to how well the chain
+approximates the true posterior distribution \citep{giv05}.
 %
 Here we describe an extension to BAMM
 that implements Metropolis coupled MCMC [\MCMCMC].
