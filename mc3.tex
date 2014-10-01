@@ -218,17 +218,20 @@ of explaining the shape or data of the tree \citep{rab14plos}.
 
 \subsection*{Metropolis coupled MCMC}
 
-MCMC in BAMM works by proposing changes, or ``moves,'' to the current model.
+MCMC in BAMM works by proposing changes, or `moves,'
+to the current shift configuration.
 %
-If the change would improve the posterior probability of the new model,
-this model becomes the current model (i.e., the move is accepted).
+If the move improves the posterior probability of the new configuration,
+the move is accepted and the new configuration becomes the current one.
 %
 Otherwise, the move is accepted with a probability proportional
-to the ratio of probabilities of proposed and current states.
+to the ratio of probabilities of the proposed and current configurations.
 %
-In the end, one obtains a chain of configurations that are,
-at least theoretically, a sample from the true distribution
-of configurations that could explain the tree.
+At the end of the MCMC simulation, one obtains a chain of configurations
+that are, theoretically, a sample from the true distribution
+of posterior probabilities,
+where each probability is proportional to the likelihood
+that a shift configuration explains the phylogenetic data.
 %
 Two desired properties of the chain obtained are good mixing and convergence.
 %
