@@ -184,7 +184,7 @@ within the same tree (Figure~\ref{fig:tree}).
 \end{figure}
 
 
-We call the start of a process an `event' or `shift,'
+We call the start of a process an \emph{event} or \emph{shift},
 which may occur on any branch of the tree
 (e.g., colored circles in Figure~\ref{fig:tree}).
 %
@@ -197,7 +197,7 @@ in Figure~\ref{fig:tree} share the same process).
 An event may occur within a clade controlled by another process.
 (e.g., event C in Figure~\ref{fig:tree}).
 %
-In such a case, the process downstream of the ``ancestral'' process
+In such a case, the process downstream of the \emph{ancestral} process
 takes over the dynamics of the branches downstream of it.
 %
 A tree must always have a process at its root.
@@ -208,7 +208,7 @@ BAMM uses reversible jump Markov Chain Monte Carlo (MCMC)
 to sample shift configurations and their probability
 that they explain the observed phylogenetic data \citep{rab14plos}.
 %
-MCMC in BAMM works by proposing changes, or `moves,'
+MCMC in BAMM works by proposing changes, or \emph{moves},
 to the current shift configuration
 (e.g., adding or deleting an event,
 moving the location of an event,
@@ -274,7 +274,7 @@ that implements Metropolis coupled MCMC [\MCMCMC].
 In \MCMCMC, additional chains are introduced
 that are able to explore more of the model landscape.
 %
-These additional chains are ``heated,''
+These additional chains are \emph{heated},
 which means that the probability landscape is flattened
 and therefore are able to explore more of it
 and are less likely to get stuck.
@@ -366,7 +366,7 @@ In practice, the more Markov chains in the system,
 the more calculations that must be performed,
 and therefore the longer the program takes to run.
 %
-In a computer with multiple processors (``multi-core'')
+In a computer with multiple processors (\emph{multi-core})
 each chain could run on a separate processor,
 thereby reducing the actual time the program takes.
 %
@@ -377,7 +377,7 @@ A chain swap event, however, must occur between two chains
 at the same generation.
 %
 Therefore, one must make sure that two chains about to swap
-are ``synchronized.''
+are \emph{synchronized}.
 
 
 There are various ways to implement this synchronization,
@@ -435,7 +435,7 @@ of Australian sphenomorphine skinks reconstructed by \citet{rab14sysbio}.
 We used BAMM (version 2.0.0) to model rates of species diversification
 across the tree with and without \MCMCMC.
 %
-As in the simulated trees, runs with \MCMCMC
+As in the simulated trees, runs with \MCMCMC\ 
 were configured with either four or eight chains.
 %
 The value of $\Delta T$ was set to 0.1
