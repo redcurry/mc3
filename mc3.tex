@@ -281,12 +281,35 @@ and are less likely to get stuck.
 %
 Swaps between chains may occur periodically,
 so if a chain does get stuck in a local optimum,
-it may immediately jump to another area of the landscape.
+it may immediately jump to another area of the landscape
+(Figure~\ref{fig:mc3-swap}).
 %
 To offset the computational cost of \MCMCMC, we implement
 multi-core \MCMCMC\ [\MCMCMCMC], where each chain
 runs on a separate computer processer in parallel to other chains,
 decreasing the total amount of time the run would otherwise take.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=11cm]{mc3-swap.pdf}
+\end{center}
+\caption{In Metropolis-coupled MCMC, the cold chain (a)
+    is the chain whose samples are recorded, and it explores
+    the same probability landscape as a regular MCMC.
+    The heated chain (b) explores a flatter landscape.
+    Heated chains (there may be more than one) are therefore
+    able to cross valleys more effectively than the cold chain.
+    After a certain number of generations,
+    a swap in temperatures may occur between chains.
+    The cold chain becomes heated (c) and the heated chain
+    becomes the cold chain (d).
+    A swap causes the cold chain to sample from
+    where the heated chain left off (arrow from b to d).
+    Thus, if the previous cold chain had been stuck in one area (a)
+    a swap helps the cold chain get unstuck by jumping
+    to a different area of the landscape (d).}
+\label{fig:mc3-swap}
+\end{figure}
 
 
 % Include sufficient details for the work to be repeated
