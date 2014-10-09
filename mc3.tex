@@ -89,11 +89,11 @@ Using both simulated phylogenetic trees and an empirical tree,
 we find that runs with \MCMCMC\ mix better than those with a single chain.
 %
 In simulated trees, convergence in runs with or without \MCMCMC\ 
-is about the same, but in the skink tree,
+is about the same, but in an empirical example tree,
 convergence is better in runs with \MCMCMC\ than those without.
 %
-\MCMCMCMC\ speeds up the run times close to $n$-fold
-for runs with $n$ chains.
+\MCMCMCMC\ speeds up run times by a factor of approximately $n$
+in runs with $n$ chains.
 
 \textbf{4.}
 \MCMCMC\ and \MCMCMCMC\ greatly improve
@@ -102,7 +102,7 @@ and we recommend their use in future studies of macroevolutionary dynamics.
 }
 
 \begin{flushleft}
-\textbf{Key-words:} BAMM, Bayesian, macroevolution, phylogeny, skink, speciation
+\textbf{Key-words:} BAMM, Bayesian, macroevolution, phylogeny, diversification, speciation
 \end{flushleft}
 
 
@@ -124,46 +124,55 @@ as a result of unique historical events,
 such as environmental, phenotypic, and genetic changes.
 %
 For example, speciation could dramatically increase
-during adaptive radiation on a newly colonized island.
+during adaptive radiation on a newly colonized island (Schluter 2000 Ecology of AR, Losos and Mahler 2010 book chapter)
 %
-Consequently, the phenotypic diversity of this colonizing group
-would also increase as organisms adapt and fill
-the available ecological niches.
+%
+Potentially, phenotypic evolutionary rates for this colonizing group
+might also increase as organisms adapt and fill
+available ecological niches (Mahler et al. 2010 Evolution).
+%
+Speciation rates might increase following the evolution of key traits that 
+facilitate novel patterns of resource use (Mitter 1988 Am Nat) or which increase the rate at which 
+isolated lineages evolve reproductive isolation (Panhuis et al. 2000 TREE , Coyne and Orr Speciation 2004).
 
-
-The processes of speciation and extinction within a group of organisms
-have shaped the topology of their phylogenetic tree \citep{nee94}.
+The processes of speciation and extinction are expected to leave a signal in the topology and branch lengths of 
+phylogenetic trees (Nee et al. 1994). Phylogenies can thereferore be used to extract information about the 
+evolutionary processes that shaped them. With an appropriate phylogenetic framework, 
+distributions of phenotypic traits across phylogenies can provide information about the tempo and mode of morphological
+evolution (citations...). A major challenge in phylogenetic diversification studies (speciation, extinction, trait evolution) 
+has been to accommodate the complex mixture of dynamics that have shaped real phylogenetic trees 
+and trait distributions (O'meara 2012 AREES). 
 %
-Phylogenetic trees can therefore be used to extract
-information about the complex dynamics that shaped them \citep{rab14plos}.
-%
-For example, adaptive radiation could show up
-as a burst in the number of splits and branches on a tree.
-%
-In addition,
-phylogenetic trees are likely composed of several evolutionary processes,
-each with a unique rate of diversification or phenotypic evolution.
+As researchers generate ever-larger phylogenies (Jetz et al Nature, Pyron and Wiens
+, Rabosky et al Nature COmmunications 2013, Zanne et al Nature 2014), it is increasingly important
+to account for the possibility that evolutionary rates have been non-uniform, both through time and among 
+lineages. A number of frameworks have recently been developed that aim to account for heterogeneous 
+evolutionary processes across phylogenetic trees (e.g., Revell et al. 2012, Eastman et al 2012, Alfaro et al 2009, Venditti et al 2011 Nature, Thomas et al MEE 2012).   
 %
 We recently developed a new method to identify and characterize
-such macroevolutionary processes across phylogenetic trees \citep{rab14plos}.
+complex mixtures of heterogeneous macroevolutionary dynamics 
+across phylogenetic trees \citep{rab14plos}.
+%also cite Rabosky et al Nature communications
+
+
 
 
 \subsection*{BAMM and Markov chain Monte Carlo}
 
 BAMM (Bayesian Analysis of Macroevolutionary Mixtures)
-is a computer program that identifies and describes
-processes of diversification (i.e., speciation and extinction)
+is a computer program that characterizes complex processes of
+diversification (i.e., speciation and extinction)
 or phenotypic evolution on phylogenetic trees.
 %
 BAMM assumes that trees are shaped by heterogeneous mixtures
-of one or more evolutionary processes,
-modeled by some function of parameters.
+of distinct evolutionary rate regimes.
 %
-For example, in speciation dynamics,
-a process is the rate of speciation
-modeled as an exponential function through time.
+Each distinct evolutionary rate regime is modeled as a time-varying or 
+time-constant rate process. For example, speciation rates can
+be modeled using a time-dependent exponential change function.
 %
-Mixtures of processes are heterogeneous because processes
+We describe the tree as a heterogeneous collection of 
+such processes, because processes
 are independent---each one has its own parameter values.
 %
 Thus, one process may indicate an increase in speciation rate,
@@ -204,11 +213,12 @@ A tree must always have a process at its root.
 (e.g., event A in Figure~\ref{fig:tree}).
 
 
-BAMM uses reversible jump Markov Chain Monte Carlo (MCMC)
-to sample shift configurations and their probability
-that they explain the observed phylogenetic data \citep{rab14plos}.
+BAMM uses reversible jump Markov Chain Monte Carlo (rjMCMC)
+to sample macroevolutionary rate shift configurations in proportion to their 
+posterior probability \citep{rab14plos}.
 %
-MCMC in BAMM works by proposing changes, or \emph{moves},
+%%%% use rjMCMC or something to distinguish from normal MCMC
+rjMCMC in BAMM works by proposing changes, or \emph{moves},
 to the current shift configuration
 (e.g., adding or deleting an event,
 moving the location of an event,
@@ -238,13 +248,14 @@ given that the current state is $\theta$.
 %
 For moves that change the dimensionality,
 a more general equation is used \citep[see][]{rab14plos}.
+%% You should also cite, somewhere, some general reversible jump
+%% papers, like Green 1995, or Sisson and Fan 200X
 
-
-At the end of the MCMC simulation, one obtains a chain of configurations
-that are, theoretically, a sample from the true distribution
-of posterior probabilities,
-where each probability is proportional to the likelihood
-that a shift configuration explains the phylogenetic data.
+At the end of the MCMC simulation, one obtains a set of configurations
+that are, theoretically, a sample from the true posterior probability distribution of macroevolutionary rate 
+shift configurations. A particular mapping of distinct evolutionary rate
+regimes across a phylogenetic tree (cite Rabosky et al Syst Biol 2014, Rabosky et al Methods Ecol Evol)
+is expected to be sampled in proportion to its posterior probability.
 %
 The advantage of using MCMC
 is that BAMM does not produce a single best configuration,
@@ -410,7 +421,7 @@ We analyzed three measures of performance for our implementation of \MCMCMC:
 For our \MCMCMCMC\ implementation, we analyzed its running speed.
 %
 For each analysis, we tested two sets of runs: one with simulated trees
-and the other with an empirical tree of Australian skinks \citep{rab14sysbio}.
+and the other with an empirical tree of Australian lizards \citep{rab14sysbio}.
 %
 For the simulated trees, we used 100 random trees
 from those generated by \citet{rab14plos}.
@@ -429,7 +440,7 @@ All runs went for 25 million generations,
 sampling every 25,000 generations to produce a total of 1,000 samples.
 
 
-For the emprical tree, we used the maximum clade credibility tree
+For the empirical tree, we used the maximum clade credibility tree
 of Australian sphenomorphine skinks reconstructed by \citet{rab14sysbio}.
 %
 We used BAMM (version 2.0.0) to model rates of species diversification
@@ -500,8 +511,10 @@ of posterior probabilities, it has reached convergence \citep{giv05}.
 Because the target distribution is often unknown, however,
 it is typically impossible to know whether an MCMC simulation has converged.
 %
-But if multiple MCMC simulations sample from very different distributions,
-then they have certainly not converged on the target distribution.
+But if multiple MCMC simulations sample from very different distributions 
+given the same underlying data,
+then one or more simulations have presumably 
+failed to converge on the target distribution.
 %
 It is also true that if multiple MCMC simulations have converged,
 then they must all sample from the same target distribution.
@@ -538,12 +551,16 @@ and therefore shared the same target posterior distribution.
 
 
 \subsubsection*{Median log-likelihood}
+%% Again, you should use rjMCMC or the like as relevant
+%% to distinguish between reversible jump MCMC
+%% and standard MCMC
 
-The purpose of the MCMC method is to approximate
-the target distribution of posterior probabilities,
-where each probability is proportional
-to the likelihood that a specific shift configuration
-explains the observed phylogenetic data.
+The purpose of the 
+rjMCMC 
+%% note change to rjMCMC
+method is to condition a posterior probability distribution
+of macroevolutionary rate shift configurations and associated 
+parameters on a specific phylogenetic dataset.
 %
 If the MCMC simulation has converged,
 it will spend relatively more time sampling
@@ -649,7 +666,7 @@ the median log-likelihood values among treatments
 were virtually identical per replicate runs (Figure \ref{fig:median-log-like}a).
 %
 These results indicate that for simulated trees,
-the MCMC simulation found the same log-likelihood space
+the MCMC simulation found the same posterior probability distribution,
 whether it had one, four, or eight chains.
 %
 For the skink tree runs,
@@ -709,10 +726,10 @@ The discussion will go here.
 
 
 \section*{Acknowledgements}
-
-This research was supported in part through computational resources
+This research was supported in part by 
+NSF-DEB-1256330 to DLR, and through computational resources
 and services provided by Advanced Research Computing
-at the University of Michigan, Ann Arbor.
+at the University of Michigan, Ann Arbor. 
 
 
 \bibliography{mc3}
