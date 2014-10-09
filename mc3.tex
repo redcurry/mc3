@@ -634,9 +634,14 @@ These results indicate that \MCMCMC\ improved mixing.
 \begin{center}
 \includegraphics[width=14cm]{eff-size.pdf}
 \end{center}
-\caption{Effective sizes of the log-likelihood for
+\caption{Effective sizes of the log-likelihood samples
+    for runs with 1, 4, or 8 chains in
     (a) runs of 100 simulated trees and (b) 25 runs of the skink tree.
-    Runs are sorted by their effective size.}
+    Runs are sorted by their effective size,
+    and higher effective size indicates better mixing.
+    For both simulated trees and the skink tree,
+    runs with 4 or 8 chains (Metropolis-coupled MCMC)
+    had better mixing than runs with a single chain.}
 \label{fig:eff-size}
 \end{figure}
 
