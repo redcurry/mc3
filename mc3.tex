@@ -61,8 +61,9 @@ $^{*}$Corresponding author: Daniel L. Rabosky (drabosky@umich.edu)
 
 \textbf{1.}
 BAMM (Bayesian Analysis of Macroevolutionary Mixtures) is a computer program
-that uses Markov chain Monte Carlo (MCMC) to model complex dynamics
-of speciation, extinction, and trait evolution on phylogenetic trees.
+that uses reversible jump Markov chain Monte Carlo (rjMCMC)
+to model complex dynamics of speciation, extinction,
+and trait evolution on phylogenetic trees.
 %
 Previous versions of BAMM used a single Markov chain
 to explore the landscape of models and their parameter values.
@@ -124,37 +125,46 @@ as a result of unique historical events,
 such as environmental, phenotypic, and genetic changes.
 %
 For example, speciation could dramatically increase
-during adaptive radiation on a newly colonized island (Schluter 2000 Ecology of AR, Losos and Mahler 2010 book chapter)
-%
+during adaptive radiation on a newly colonized island \citep{sch00,los10}.
 %
 Potentially, phenotypic evolutionary rates for this colonizing group
 might also increase as organisms adapt and fill
-available ecological niches (Mahler et al. 2010 Evolution).
+available ecological niches \citep{mah10}.
 %
-Speciation rates might increase following the evolution of key traits that 
-facilitate novel patterns of resource use (Mitter 1988 Am Nat) or which increase the rate at which 
-isolated lineages evolve reproductive isolation (Panhuis et al. 2000 TREE , Coyne and Orr Speciation 2004).
+Speciation rates might increase following the evolution of key traits
+that facilitate novel patterns of resource use \citep{mit88}
+or which increase the rate at which isolated lineages
+evolve reproductive isolation \citep{pan01,coy04}.
 
-The processes of speciation and extinction are expected to leave a signal in the topology and branch lengths of 
-phylogenetic trees (Nee et al. 1994). Phylogenies can thereferore be used to extract information about the 
-evolutionary processes that shaped them. With an appropriate phylogenetic framework, 
-distributions of phenotypic traits across phylogenies can provide information about the tempo and mode of morphological
-evolution (citations...). A major challenge in phylogenetic diversification studies (speciation, extinction, trait evolution) 
-has been to accommodate the complex mixture of dynamics that have shaped real phylogenetic trees 
-and trait distributions (O'meara 2012 AREES). 
+
+The processes of speciation and extinction are expected to leave a signal
+in the topology and branch lengths of phylogenetic trees (Nee et al. 1994).
 %
-As researchers generate ever-larger phylogenies (Jetz et al Nature, Pyron and Wiens
-, Rabosky et al Nature COmmunications 2013, Zanne et al Nature 2014), it is increasingly important
-to account for the possibility that evolutionary rates have been non-uniform, both through time and among 
-lineages. A number of frameworks have recently been developed that aim to account for heterogeneous 
-evolutionary processes across phylogenetic trees (e.g., Revell et al. 2012, Eastman et al 2012, Alfaro et al 2009, Venditti et al 2011 Nature, Thomas et al MEE 2012).   
+Phylogenies can thereferore be used to extract information
+about the evolutionary processes that shaped them.
+%
+With an appropriate phylogenetic framework,
+distributions of phenotypic traits across phylogenies
+can provide information about the tempo and mode of morphological evolution
+(citations...).
+%
+A major challenge in phylogenetic diversification studies
+(speciation, extinction, or trait evolution)
+has been to accommodate the complex mixture of dynamics
+that have shaped real phylogenetic trees and trait distributions \citep{ome12}.
+%
+As researchers generate ever-larger phylogenies
+\citep{jet12,pyr13,rab13,zan14}, it is increasingly important
+to account for the possibility that evolutionary rates have been non-uniform,
+both through time and among lineages.
+%
+A number of frameworks have recently been developed
+that aim to account for heterogeneous evolutionary processes
+across phylogenetic trees \citep{rev12,eas11,alf09,ven11,tho12}.
 %
 We recently developed a new method to identify and characterize
-complex mixtures of heterogeneous macroevolutionary dynamics 
-across phylogenetic trees \citep{rab14plos}.
-%also cite Rabosky et al Nature communications
-
-
+complex mixtures of heterogeneous macroevolutionary dynamics
+across phylogenetic trees \citep{rab14plos,rab13}.
 
 
 \subsection*{BAMM and Markov chain Monte Carlo}
@@ -167,11 +177,11 @@ or phenotypic evolution on phylogenetic trees.
 BAMM assumes that trees are shaped by heterogeneous mixtures
 of distinct evolutionary rate regimes.
 %
-Each distinct evolutionary rate regime is modeled as a time-varying or 
+Each distinct evolutionary rate regime is modeled as a time-varying or
 time-constant rate process. For example, speciation rates can
 be modeled using a time-dependent exponential change function.
 %
-We describe the tree as a heterogeneous collection of 
+We describe the tree as a heterogeneous collection of
 such processes, because processes
 are independent---each one has its own parameter values.
 %
@@ -213,12 +223,11 @@ A tree must always have a process at its root.
 (e.g., event A in Figure~\ref{fig:tree}).
 
 
-BAMM uses reversible jump Markov Chain Monte Carlo (rjMCMC)
-to sample macroevolutionary rate shift configurations in proportion to their 
+BAMM uses reversible jump Markov Chain Monte Carlo (rjMCMC) \citep{gre95}
+to sample macroevolutionary rate shift configurations in proportion to their
 posterior probability \citep{rab14plos}.
 %
-%%%% use rjMCMC or something to distinguish from normal MCMC
-rjMCMC in BAMM works by proposing changes, or \emph{moves},
+In BAMM, rjMCMC works by proposing changes, or \emph{moves},
 to the current shift configuration
 (e.g., adding or deleting an event,
 moving the location of an event,
@@ -246,15 +255,18 @@ and $q(\theta' | \theta)$ is the relative probability
 of proposing a move to parameter vector $\theta'$,
 given that the current state is $\theta$.
 %
-For moves that change the dimensionality,
-a more general equation is used \citep[see][]{rab14plos}.
-%% You should also cite, somewhere, some general reversible jump
-%% papers, like Green 1995, or Sisson and Fan 200X
+For moves that change the dimensionality---%
+where reversible jump becomes important---%
+a more general equation is used \citep[see][]{rab14plos,gre95}.
 
-At the end of the MCMC simulation, one obtains a set of configurations
-that are, theoretically, a sample from the true posterior probability distribution of macroevolutionary rate 
-shift configurations. A particular mapping of distinct evolutionary rate
-regimes across a phylogenetic tree (cite Rabosky et al Syst Biol 2014, Rabosky et al Methods Ecol Evol)
+
+At the end of the MCMC simulation,
+one obtains a set of configurations that are, theoretically,
+a sample from the true posterior probability distribution
+of macroevolutionary rate shift configurations.
+%
+A particular mapping of distinct evolutionary rate regimes
+across a phylogenetic tree \citep{rab14sysbio,rab14mee}
 is expected to be sampled in proportion to its posterior probability.
 %
 The advantage of using MCMC
@@ -511,9 +523,9 @@ of posterior probabilities, it has reached convergence \citep{giv05}.
 Because the target distribution is often unknown, however,
 it is typically impossible to know whether an MCMC simulation has converged.
 %
-But if multiple MCMC simulations sample from very different distributions 
+But if multiple MCMC simulations sample from very different distributions
 given the same underlying data,
-then one or more simulations have presumably 
+then one or more simulations have presumably
 failed to converge on the target distribution.
 %
 It is also true that if multiple MCMC simulations have converged,
@@ -551,15 +563,10 @@ and therefore shared the same target posterior distribution.
 
 
 \subsubsection*{Median log-likelihood}
-%% Again, you should use rjMCMC or the like as relevant
-%% to distinguish between reversible jump MCMC
-%% and standard MCMC
 
-The purpose of the 
-rjMCMC 
-%% note change to rjMCMC
+The purpose of the rjMCMC
 method is to condition a posterior probability distribution
-of macroevolutionary rate shift configurations and associated 
+of macroevolutionary rate shift configurations and associated
 parameters on a specific phylogenetic dataset.
 %
 If the MCMC simulation has converged,
@@ -743,10 +750,10 @@ it is important that samples be indepentent.
 
 
 \section*{Acknowledgements}
-This research was supported in part by 
+This research was supported in part by
 NSF-DEB-1256330 to DLR, and through computational resources
 and services provided by Advanced Research Computing
-at the University of Michigan, Ann Arbor. 
+at the University of Michigan, Ann Arbor.
 
 
 \bibliography{mc3}
