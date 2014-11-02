@@ -668,7 +668,7 @@ the quantiles ($\times$ 1,000) were 4.71--10.53 (mean of 7.46)
 and 4.32--10.70 (mean of 7.35).
 %
 These results indicate that the median log-likelihood variance
-in runs without \MCMCMC\ were higher than those with \MCMCMC
+in runs without \MCMCMC\ were higher than those with \MCMCMC\ 
 (with a small amount of overlap).
 %
 These result suggest that runs with \MCMCMC\ 
@@ -747,6 +747,20 @@ the overall performance of BAMM analyses.
 %
 In order to unbiased results,
 it is important that samples be indepentent.
+
+% In Fig. 3, why does panel (a) results all start at 0,
+% but for panel (b), MC3 results start way higher?
+% - Look at simulated data to see why some have eff. size of 0
+
+% In Fig. 4, why did simulations not improve log-likelihood with MC3,
+% but they did for the skink tree?
+% - Indicates simulations all reached the same place
+% - Perhaps they got stuck there, maybe solution was simple
+%   - Check to see whether they all found four events
+
+% In Fig. 4, more chains seems to improve log-likelihood (8 vs. 4)
+% - More chains can explore more landscape
+% - But diminishing returns (1 vs. 4 vs. 8)
 
 
 \section*{Acknowledgements}
